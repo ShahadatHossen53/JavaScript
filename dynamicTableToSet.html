@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table To set</title>
+    <style> 
+    table {
+        border-collapse: collapse;
+        
+    }
+
+
+        td{
+            width: 20px;
+            text-align: center;
+        }
+        b{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <label for="Row">Row</label><input type="number" id='row_num' onchange="update_table()" value="3" min="1" max="100">
+    <label for="Col">Col</label><input type="number" id='col_num' onchange="update_table()" value="3" min="1" max="100">
+    <button onclick="show_set()">Show Set</button>
+    <p id="show_sets_result"></p>
+    <p id="demo"></p>
+    <div id='myTable'>
+        
+    </div>
+</body>
+
+
+
+<script>
+
+    update_table();
+
+    function change_value(cell_id){
+        var value = document.getElementById(cell_id).innerHTML;
+        if(value=="1"){
+            document.getElementById(cell_id).innerHTML = 0;
+        }
+        else{
+            document.getElementById(cell_id).innerHTML = 1;
+        }
+        //document.getElementById("demo").innerHTML = value;
+    }
+
+
+    
+    function show_set(){
+        var row_num = document.getElementById('row_num').value;
+        var col_num = document.getElementById('col_num').value;
+        var result = "";
+        for(var r=0; r<row_num; r++){
+            for(var c=0; c<col_num; c++){
+                var cell_id = "id_"+r+"_"+c;
+                if(document.getElementById(cell_id).innerHTML=="1"){
+                    
+                    result+= "("+r+","+c+"),";
+                    
+                }  
+            }
+        }
+
+        //result = result.slice(0,-1);
+        document.getElementById("show_sets_result").innerHTML = "<b>{</b>"+result.slice(0,-1)+"<b>}</b>";
+    }
+
+    function update_table(){
+
+        var row_num = document.getElementById('row_num').value;
+        var col_num = document.getElementById('col_num').value;
+
+        var list = document.getElementById("myTable");
+        list.removeChild(list.childNodes[0]);
+
+       
+
+        if(row_num<1){
+            document.getElementById('row_num').value=1;
+            row_num = 1;
+        }
+        if(col_num<1){
+            document.getElementById('col_num').value=1;
+            col_num = 1;
+        }
+
+
+        var node_row = document.createElement("tr");
+        var table = document.createElement("table");
+        table.setAttribute('border','1');
+        var node_col;
+        for(var r=0; r<row_num; r++){
+            node_row = document.createElement("tr");
+            for(var c=0; c<col_num; c++){
+                node_col = document.createElement("td");
+                //node_col.setAttribute("width", "50px");
+                var textnode = document.createTextNode("Water");
+                var inputnode = document.createElement("p");
+                var textnode = document.createTextNode("0");
+                //inputnode.setAttribute("type", "number");
+                //inputnode.setAttribute("min", "0");
+                //inputnode.setAttribute("max", "1");
+                var cell_id = "id_"+r+"_"+c;
+                //inputnode.setAttribute("id", cell_id);
+                //inputnode.setAttribute("onClick", "change_value('"+cell_id+"')");
+
+                //inputnode.appendChild(textnode);
+
+
+                node_col.setAttribute("id", cell_id);
+                node_col.setAttribute("onClick", "change_value('"+cell_id+"')");
+
+                node_col.appendChild(textnode);
+                
+                //node_col.appendChild(inputnode);
+                node_row.appendChild(node_col);
+            }
+            
+            table.appendChild(node_row);
+            
+        }
+        document.getElementById('myTable').appendChild(table);
+    }
+</script>
+
+
+</html>
