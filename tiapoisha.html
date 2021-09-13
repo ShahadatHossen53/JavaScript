@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="" content="">
+    <title>Tiapoisha</title>
+    <style type="text/css" media="all">
+      .demo2{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" name="" id="inputText" value="" />
+    <input type="submit" name="" id="" value="Encrypte"  onclick="encriptText()"/>
+    <br /><hr />
+    <input type="text" name="" id="inencriptText" value="" />
+    <input type="submit" name="" id="" onclick="decreptText()" value="Decrept" />
+    
+  <p id="demo"></p>
+  <p id="demo2" class="demo2"></p>
+    
+    
+    
+  <script type="text/javascript" charset="utf-8">
+  function encriptText(){
+    let str = document.getElementById('inputText').value;
+    var result = "";
+  
+    for(var i=0; i<str.length; i++){
+    	result += str.charCodeAt(i);
+    }
+    document.getElementById("demo").innerHTML = result;
+  }
+  
+  function decreptText(){
+    let str = document.getElementById("inencriptText").value;
+    var result = "";
+    for(var i=0; i<str.length; i++){
+      var temp = parseInt(str[i]);
+      var tresult = "";
+      if(temp == 1){
+        for(var j=0; j<3; j++){
+          tresult += str[i+j];
+        }
+        i += 2;
+      }
+      else{
+        for(var j=0; j<2; j++){
+          tresult += str[i+j];
+        }
+        i += 1;
+      }
+      
+      result += String.fromCharCode(parseInt(tresult));
+      
+    }
+    
+    document.getElementById("demo2").innerHTML = result;
+  }
+  
+  </script>
+</body>
+</html>
